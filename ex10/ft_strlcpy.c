@@ -6,11 +6,11 @@
 /*   By: evavrinu <evavrinu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/17 19:56:06 by evavrinu          #+#    #+#             */
-/*   Updated: 2026/05/19 15:19:01 by evavrinu         ###   ########.fr       */
+/*   Updated: 2026/05/20 17:10:57 by evavrinu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+// #include <stdio.h>
 
 unsigned int	ft_strlcpy(char *dest, char *src, unsigned int size)
 {

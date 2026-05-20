@@ -6,11 +6,11 @@
 /*   By: evavrinu <evavrinu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 13:21:12 by evavrinu          #+#    #+#             */
-/*   Updated: 2026/05/20 16:59:13 by evavrinu         ###   ########.fr       */
+/*   Updated: 2026/05/20 17:10:59 by evavrinu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+// #include <unistd.h>
 
 void	ft_put_hex(unsigned char c)
 {
@@ -41,15 +41,15 @@ void	ft_putstr_non_printable(char *str)
 	}
 }
 
-int	main(void)
-{
-	ft_putstr_non_printable("Hello\nHow are you?\n");
-	write(1, "\n", 1);
-	ft_putstr_non_printable("Tab:\there\n");
-	write(1, "\n", 1);
-	ft_putstr_non_printable("Null in the middle: \0oooo\n");
-	write(1, "\n", 1);
-	ft_putstr_non_printable("Something\a and Something\033\n");
-	write(1, "\n", 1);
-	return (0);
-}
+// int	main(void)
+// {
+// 	ft_putstr_non_printable("Hello\nHow are you?\n");
+// 	write(1, "\n", 1);
+// 	ft_putstr_non_printable("Tab:\there\n");
+// 	write(1, "\n", 1);
+// 	ft_putstr_non_printable("Null in the middle: \0oooo\n");
+// 	write(1, "\n", 1);
+// 	ft_putstr_non_printable("Something\a and Something\033\n");
+// 	write(1, "\n", 1);
+// 	return (0);
+// }

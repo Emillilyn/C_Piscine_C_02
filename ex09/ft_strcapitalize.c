@@ -6,12 +6,12 @@
 /*   By: evavrinu <evavrinu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 12:49:00 by evavrinu          #+#    #+#             */
-/*   Updated: 2026/05/19 15:18:48 by evavrinu         ###   ########.fr       */
+/*   Updated: 2026/05/20 17:10:53 by evavrinu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <unistd.h>
+// #include <stdio.h>
+// #include <unistd.h>
 
 char	*ft_strcapitalize(char *str)
 {

@@ -6,7 +6,7 @@
 /*   By: evavrinu <evavrinu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 11:39:22 by evavrinu          #+#    #+#             */
-/*   Updated: 2026/05/15 11:48:26 by evavrinu         ###   ########.fr       */
+/*   Updated: 2026/05/20 17:18:49 by evavrinu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,19 @@ int	ft_str_is_printable(char *str)
 	while (str[i] != '\0')
 	{
 		if (str[i] < 32 || str[i] > 126)
-		{
 			return (0);
-		}
 		i++;
 	}
 	return (1);
 }
 
-// int	ft_str_is_printable(char *str);
-
 // int	main(void)
 // {
-// 	char	*test1;
-// 	char	*test2;
-// 	char	*test3;
-// 	char	*test4;
-// 	char	*test5;
+// 	char *test1;
+// 	char *test2;
+// 	char *test3;
+// 	char *test4;
+// 	char *test5;
 
 // 	test1 = "Hello! 123";
 // 	test2 = "Line\nBreak";

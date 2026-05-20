@@ -6,12 +6,12 @@
 /*   By: evavrinu <evavrinu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 13:57:56 by evavrinu          #+#    #+#             */
-/*   Updated: 2026/05/19 15:19:39 by evavrinu         ###   ########.fr       */
+/*   Updated: 2026/05/20 17:11:02 by evavrinu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
-#include <unistd.h>
+// #include <string.h>
+// #include <unistd.h>
 
 static void	print_hex_addr(unsigned long addr)
 {

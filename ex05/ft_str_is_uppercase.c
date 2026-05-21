@@ -26,6 +26,7 @@ int	ft_str_is_uppercase(char *str)
 	return (1);
 }
 
+/*
 void	ft_putstr(char *str)
 {
 	int	i;
@@ -36,7 +37,7 @@ void	ft_putstr(char *str)
 		write(1, &str[i], 1);
 		i++;
 	}
-}
+} */
 
 // int	main(void)
 // {

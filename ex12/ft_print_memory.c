@@ -6,24 +6,46 @@
 /*   By: evavrinu <evavrinu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 13:57:56 by evavrinu          #+#    #+#             */
-/*   Updated: 2026/05/20 17:11:02 by evavrinu         ###   ########.fr       */
+/*   Updated: 2026/05/21 14:41:15 by evavrinu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include <string.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_print_memory.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: student <student@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/21 00:00:00 by student           #+#    #+#             */
+/*   Updated: 2026/05/21 00:00:00 by student          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 // #include <unistd.h>
 
-static void	print_hex_addr(unsigned long addr)
+void	print_hex_char(unsigned char c)
 {
-	char	*hex;
+	char	hex[2];
+	char	*base;
+
+	base = "0123456789abcdef";
+	hex[0] = base[(c >> 4) & 0xF];
+	hex[1] = base[c & 0xF];
+	write(1, hex, 2);
+}
+
+void	print_address(unsigned long addr)
+{
 	char	buf[16];
+	char	*base;
 	int		i;
 
-	hex = "0123456789abcdef";
+	base = "0123456789abcdef";
 	i = 15;
 	while (i >= 0)
 	{
-		buf[i] = hex[addr & 0xf];
+		buf[i] = base[addr & 0xF];
 		addr >>= 4;
 		i--;
 	}
@@ -31,62 +53,58 @@ static void	print_hex_addr(unsigned long addr)
 	write(1, ": ", 2);
 }
 
-static void	print_hex_col(unsigned char *ptr, unsigned int row_len)
+void	print_hex_col(unsigned char *ptr, unsigned int size,
+		unsigned int offset)
 {
-	char			*hex;
-	unsigned int	j;
+	unsigned int	i;
 
-	hex = "0123456789abcdef";
-	j = 0;
-	while (j < 16)
+	i = 0;
+	while (i < 16)
 	{
-		if (j < row_len)
-		{
-			write(1, &hex[ptr[j] >> 4], 1);
-			write(1, &hex[ptr[j] & 0xf], 1);
-		}
+		if (offset + i < size)
+			print_hex_char(ptr[offset + i]);
 		else
 			write(1, "  ", 2);
-		if (j % 2 == 1)
+		i++;
+		if (i % 2 == 0)
 			write(1, " ", 1);
-		j++;
 	}
 }
 
-static void	print_ascii_col(unsigned char *ptr, unsigned int row_len)
+void	print_char_col(unsigned char *ptr, unsigned int size,
+		unsigned int offset)
 {
-	unsigned int	j;
+	unsigned int	i;
+	char			c;
 
-	j = 0;
-	while (j < row_len)
+	i = 0;
+	while (i < 16 && offset + i < size)
 	{
-		if (ptr[j] >= 32 && ptr[j] < 127)
-			write(1, &ptr[j], 1);
+		c = ptr[offset + i];
+		if (c >= 32 && c <= 126)
+			write(1, &c, 1);
 		else
 			write(1, ".", 1);
-		j++;
+		i++;
 	}
-	write(1, "\n", 1);
 }
 
 void	*ft_print_memory(void *addr, unsigned int size)
 {
 	unsigned char	*ptr;
-	unsigned int	i;
-	unsigned int	row_len;
+	unsigned int	offset;
 
+	if (size == 0)
+		return (addr);
 	ptr = (unsigned char *)addr;
-	i = 0;
-	while (i < size)
+	offset = 0;
+	while (offset < size)
 	{
-		print_hex_addr((unsigned long)(ptr + i));
-		if (size - i < 16)
-			row_len = size - i;
-		else
-			row_len = 16;
-		print_hex_col(ptr + i, row_len);
-		print_ascii_col(ptr + i, row_len);
-		i += 16;
+		print_address((unsigned long)(ptr + offset));
+		print_hex_col(ptr, size, offset);
+		print_char_col(ptr, size, offset);
+		write(1, "\n", 1);
+		offset += 16;
 	}
 	return (addr);
 }
@@ -96,6 +114,6 @@ void	*ft_print_memory(void *addr, unsigned int size)
 // 	char	*str;
 
 // 	str = "Hello 42 World!\nThis is ft_print_memory.\n\tTabs\tand\nnewlines!\0";
-// 	ft_print_memory(str, strlen(str) + 4);
+// 	ft_print_memory(str, 96);
 // 	return (0);
 // }

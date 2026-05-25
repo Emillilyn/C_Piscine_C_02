@@ -10,30 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include <unistd.h>
+#include <unistd.h>
 
-void	print_hex_char(unsigned char c)
+static void	print_hex_addr(unsigned long addr)
 {
-	char	hex[2];
-	char	*base;
-
-	base = "0123456789abcdef";
-	hex[0] = base[(c >> 4) & 0xF];
-	hex[1] = base[c & 0xF];
-	write(1, hex, 2);
-}
-
-void	print_address(unsigned long addr)
-{
+	char	*hex;
 	char	buf[16];
-	char	*base;
 	int		i;
 
-	base = "0123456789abcdef";
+	hex = "0123456789abcdef";
 	i = 15;
 	while (i >= 0)
 	{
-		buf[i] = base[addr & 0xF];
+		buf[i] = hex[addr & 0xf];
 		addr >>= 4;
 		i--;
 	}
@@ -41,58 +30,62 @@ void	print_address(unsigned long addr)
 	write(1, ": ", 2);
 }
 
-void	print_hex_col(unsigned char *ptr, unsigned int size,
-		unsigned int offset)
+static void	print_hex_col(unsigned char *ptr, unsigned int row_len)
 {
-	unsigned int	i;
+	char			*hex;
+	unsigned int	j;
 
-	i = 0;
-	while (i < 16)
+	hex = "0123456789abcdef";
+	j = 0;
+	while (j < 16)
 	{
-		if (offset + i < size)
-			print_hex_char(ptr[offset + i]);
+		if (j < row_len)
+		{
+			write(1, &hex[ptr[j] >> 4], 1);
+			write(1, &hex[ptr[j] & 0xf], 1);
+		}
 		else
 			write(1, "  ", 2);
-		i++;
-		if (i % 2 == 0)
+		if (j % 2 == 1)
 			write(1, " ", 1);
+		j++;
 	}
 }
 
-void	print_char_col(unsigned char *ptr, unsigned int size,
-		unsigned int offset)
+static void	print_ascii_col(unsigned char *ptr, unsigned int row_len)
 {
-	unsigned int	i;
-	char			c;
+	unsigned int	j;
 
-	i = 0;
-	while (i < 16 && offset + i < size)
+	j = 0;
+	while (j < row_len)
 	{
-		c = ptr[offset + i];
-		if (c >= 32 && c <= 126)
-			write(1, &c, 1);
+		if (ptr[j] >= 32 && ptr[j] < 127)
+			write(1, &ptr[j], 1);
 		else
 			write(1, ".", 1);
-		i++;
+		j++;
 	}
+	write(1, "\n", 1);
 }
 
 void	*ft_print_memory(void *addr, unsigned int size)
 {
 	unsigned char	*ptr;
-	unsigned int	offset;
+	unsigned int	i;
+	unsigned int	row_len;
 
-	if (size == 0)
-		return (addr);
 	ptr = (unsigned char *)addr;
-	offset = 0;
-	while (offset < size)
+	i = 0;
+	while (i < size)
 	{
-		print_address((unsigned long)(ptr + offset));
-		print_hex_col(ptr, size, offset);
-		print_char_col(ptr, size, offset);
-		write(1, "\n", 1);
-		offset += 16;
+		print_hex_addr((unsigned long)(ptr + i));
+		if (size - i < 16)
+			row_len = size - i;
+		else
+			row_len = 16;
+		print_hex_col(ptr + i, row_len);
+		print_ascii_col(ptr + i, row_len);
+		i += 16;
 	}
 	return (addr);
 }
@@ -102,6 +95,7 @@ void	*ft_print_memory(void *addr, unsigned int size)
 // 	char	*str;
 
 // 	str = "Hello 42 World!\nThis is ft_print_memory.\n\tTabs\tand\nnewlines!\0";
-// 	ft_print_memory(str, 96);
+// 	ft_print_memory(str, strlen(str) + 4);
 // 	return (0);
 // }
+

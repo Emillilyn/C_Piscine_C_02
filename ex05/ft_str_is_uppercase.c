@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include <unistd.h>
+#include <unistd.h>
 
 int	ft_str_is_uppercase(char *str)
 {
@@ -25,19 +25,6 @@ int	ft_str_is_uppercase(char *str)
 	}
 	return (1);
 }
-
-/*
-void	ft_putstr(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		write(1, &str[i], 1);
-		i++;
-	}
-} */
 
 // int	main(void)
 // {
